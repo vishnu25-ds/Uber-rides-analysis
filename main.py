@@ -41,3 +41,7 @@ df.info()
 print(f"{Fore.RED}Statistical Analysis of Feature 'MILES: \n.{Style.RESET_ALL}")
 df.describe()
 
+print(f"{Fore.YELLOW}Duplicat Row in Dataset: \n.{Style.RESET_ALL}")
+
+df[df.duplicated()]
+
