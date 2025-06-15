@@ -30,3 +30,14 @@ print(f"{Fore.BLUE}The Shape of Dataset is: {df.shape}.{Style.RESET_ALL}")
 
 print(f"{Fore.BLUE}Information of Features in Dataset: \n.{Style.RESET_ALL}")
 df.info()
+
+# Try to parse 'START_DATE' and 'END_DATE' with multiple formats
+df['START_DATE'] = pd.to_datetime(df['START_DATE'], infer_datetime_format=True, errors='coerce')
+df['END_DATE'] = pd.to_datetime(df['END_DATE'], infer_datetime_format=True, errors='coerce')
+
+print(f"{Fore.BLUE}Information of Features in Dataset(after): \n.{Style.RESET_ALL}")
+df.info()
+
+print(f"{Fore.RED}Statistical Analysis of Feature 'MILES: \n.{Style.RESET_ALL}")
+df.describe()
+
