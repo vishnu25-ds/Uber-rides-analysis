@@ -45,3 +45,19 @@ print(f"{Fore.YELLOW}Duplicat Row in Dataset: \n.{Style.RESET_ALL}")
 
 df[df.duplicated()]
 
+
+
+df.drop_duplicates(inplace = True)
+
+
+print(f"{Fore.MAGENTA}Null Values in Each Feature (before): \n.{Style.RESET_ALL}")
+df.isnull().sum()
+
+
+df["PURPOSE"] = df["PURPOSE"].fillna("Missing")
+df.dropna(inplace = True)
+
+
+print(f"{Fore.MAGENTA}Null Values in Each Feature (after): \n.{Style.RESET_ALL}")
+df.isnull().sum()
+
