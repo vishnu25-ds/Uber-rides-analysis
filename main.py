@@ -61,3 +61,24 @@ df.dropna(inplace = True)
 print(f"{Fore.MAGENTA}Null Values in Each Feature (after): \n.{Style.RESET_ALL}")
 df.isnull().sum()
 
+
+
+
+# Try parsing with the first format
+try:
+    df['START_DATE'] = pd.to_datetime(df['START_DATE'], format='%m/%d/%Y %H:%M')
+except ValueError:
+    # If the first format fails, try parsing with the second format
+    df['START_DATE'] = pd.to_datetime(df['START_DATE'], format='%m-%d-%Y %H:%M')
+
+# Repeat the same for 'END_DATE'
+try:
+    df['END_DATE'] = pd.to_datetime(df['END_DATE'], format='%m/%d/%Y %H:%M')
+except ValueError:
+    df['END_DATE'] = pd.to_datetime(df['END_DATE'], format='%m-%d-%Y %H:%M')
+
+
+
+df.head()
+
+
