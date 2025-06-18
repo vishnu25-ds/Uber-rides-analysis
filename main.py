@@ -81,4 +81,18 @@ except ValueError:
 
 df.head()
 
+df.rename(columns={
+    'START_DATE': 'start_date',
+    'END_DATE': 'end_date',
+    'CATEGORY': 'category',
+    'START' : 'start',
+    'STOP' : 'stop',
+    'MILES' : 'miles',
+    'PURPOSE' : 'purpose'
+}, inplace=True)
+
+
+df.head()
+
+
 
