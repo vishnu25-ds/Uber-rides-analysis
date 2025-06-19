@@ -112,4 +112,5 @@ df['duration'] = (df['end_date'] - df['start_date']).dt.total_seconds() / 60
 print(f"{Fore.BLUE}New Data: \n.{Style.RESET_ALL}")
 data = df.copy()
 df.head(5)
+#
 
