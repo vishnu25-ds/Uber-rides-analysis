@@ -96,3 +96,20 @@ df.head()
 
 
 
+# Creating new features for better analysis and accuracy
+
+df['day_name'] = df['start_date'].dt.day_name()
+
+time_periods = [0, 6, 12, 18, 24]
+labels = ['Night', 'Morning', 'Afternoon', 'Evening']
+
+df['time_label'] = pd.cut(df['start_date'].dt.hour, bins=time_periods, labels=labels, right=False)
+
+df["month"] = df['start_date'].dt.month_name()
+
+df['duration'] = (df['end_date'] - df['start_date']).dt.total_seconds() / 60
+
+print(f"{Fore.BLUE}New Data: \n.{Style.RESET_ALL}")
+data = df.copy()
+df.head(5)
+
