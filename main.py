@@ -112,5 +112,28 @@ df['duration'] = (df['end_date'] - df['start_date']).dt.total_seconds() / 60
 print(f"{Fore.BLUE}New Data: \n.{Style.RESET_ALL}")
 data = df.copy()
 df.head(5)
-#
+
+
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def fast_eda(df):
+    # Exclude non-numeric columns from correlation computation
+    numeric_columns = df.select_dtypes(include=['number']).columns
+    numeric_df = df[numeric_columns]
+
+    # Display heatmap
+    if numeric_df.columns.nunique() < 15:
+        sns.heatmap(numeric_df.corr(), annot=True, cmap="Spectral", linewidths=2, linecolor="#000000", fmt='.2f')
+        plt.show()
+    elif numeric_df.columns.nunique() < 25:
+        
+        pass
+
+fast_eda(df)
+
+df.describe()
+
 
