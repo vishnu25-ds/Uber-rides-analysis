@@ -137,3 +137,25 @@ fast_eda(df)
 df.describe()
 
 
+popular_destinations = df['start'].value_counts().head(10)
+
+# Plot the top 10 popular destinations
+plt.figure(figsize=(12, 6))
+sns.barplot(x=popular_destinations.values, y=popular_destinations.index, palette='viridis')
+plt.title('Popular Pickup locations')
+plt.xlabel('Number of Rides')
+plt.ylabel('Pickup locations')
+plt.show()
+
+
+
+popular_destinations = df['stop'].value_counts().head(10)
+
+# Plot the top 10 popular destinations
+plt.figure(figsize=(12, 6))
+sns.barplot(x=popular_destinations.values, y=popular_destinations.index, palette='viridis')
+plt.title('Popular Drop locations')
+plt.xlabel('Number of Rides')
+plt.ylabel('Destination')
+plt.show()
+
