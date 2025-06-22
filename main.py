@@ -159,3 +159,27 @@ plt.xlabel('Number of Rides')
 plt.ylabel('Destination')
 plt.show()
 
+
+sns.countplot(x=df["purpose"])
+plt.title("Value Counts of Feature: PURPOSE")
+plt.xticks(rotation=90)
+
+
+sns.countplot(x=df["category"])
+plt.title("Value Counts of Feature: CATEGORY")
+plt.xticks(rotation=0)
+
+
+sns.countplot(x=df["day_name"])
+plt.title("Value Counts of Feature: DAY NAME")
+plt.xticks(rotation=45)
+
+
+sns.countplot(x=df["time_label"])
+plt.title("Value Counts of Feature: TIME LABEL")
+plt.xticks(rotation=45)
+
+
+sns.countplot(x=df["month"])
+plt.title("Value Counts of Feature: MONTH")
+plt.xticks(rotation=90)
