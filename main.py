@@ -183,3 +183,51 @@ plt.xticks(rotation=45)
 sns.countplot(x=df["month"])
 plt.title("Value Counts of Feature: MONTH")
 plt.xticks(rotation=90)
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+top_values = df["start"].value_counts().head(10).index
+sns.countplot(x=df[df["start"].isin(top_values)]["start"])
+plt.title("Top 10 Value Counts of Feature: start")
+plt.xticks(rotation=90)
+plt.show()
+
+
+sns.barplot(x= df["purpose"], y= df['miles'],hue = df["category"])
+plt.title("Purpose VS Miles Travelled By Category ")
+plt.xticks(rotation=90)
+
+
+sns.boxplot(x=df["time_label"],y=df["miles"])
+plt.title("Outliers in MILES over TIME")
+
+
+sns.boxplot(x=df["duration"],data=df)
+plt.title("Outliers in Duration")
+
+
+sns.boxplot(x=df['miles'],data = df)
+plt.title("Outliers in Miles")
+
+
+sns.distplot(df["miles"])
+plt.title("Density PLot for Miles")
+
+
+
+sns.distplot(df["duration"])
+plt.title("Density PLot for Duration")
+
+
+sns.distplot(df["miles"],hist = False,label="Miles")
+sns.distplot(df["duration"],hist = False, label="Duration")
+plt.xlabel("Miles VS Duration")
+plt.legend()
+
