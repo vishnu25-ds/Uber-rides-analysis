@@ -231,3 +231,35 @@ sns.distplot(df["duration"],hist = False, label="Duration")
 plt.xlabel("Miles VS Duration")
 plt.legend()
 
+
+print(f"{Fore.CYAN}Outliers in data: \n.{Style.RESET_ALL}")
+df = df[df['start_date'] != "Totals"]
+df['start_date'] = pd.to_datetime(df['start_date'])
+df.set_index('start_date', inplace=True)
+daily_miles = df.resample('D')['miles'].sum()
+plt.figure(figsize=(12, 6))
+plt.plot(daily_miles.index, daily_miles.values)
+plt.xlabel('Date')
+plt.ylabel('Miles Driven')
+plt.title('Miles Driven Over Time')
+plt.show()
+
+
+
+# Calculate IQR for 'miles' feature
+Q1_miles = np.percentile(df['miles'], 25)
+Q3_miles = np.percentile(df['miles'], 75)
+IQR_miles = Q3_miles - Q1_miles
+
+# Calculate IQR for 'duration' feature
+Q1_duration = np.percentile(df['duration'], 25)
+Q3_duration = np.percentile(df['duration'], 75)
+IQR_duration = Q3_duration - Q1_duration
+
+# Define outlier boundaries
+lower_bound_miles = Q1_miles - 1.5 * IQR_miles
+upper_bound_miles = Q3_miles + 1.5 * IQR_miles
+
+lower_bound_duration = Q1_duration - 1.5 * IQR_duration
+upper_bound_duration = Q3_duration + 1.5 * IQR_duration
+
