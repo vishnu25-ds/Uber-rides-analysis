@@ -263,3 +263,25 @@ upper_bound_miles = Q3_miles + 1.5 * IQR_miles
 lower_bound_duration = Q1_duration - 1.5 * IQR_duration
 upper_bound_duration = Q3_duration + 1.5 * IQR_duration
 
+
+# Identify and deal with outliers
+df['miles'] = np.where(df['miles'] < lower_bound_miles, lower_bound_miles, df['miles'])
+df['miles'] = np.where(df['miles'] > upper_bound_miles, upper_bound_miles, df['miles'])
+
+df['duration'] = np.where(df['duration'] < lower_bound_duration, lower_bound_duration, df['duration'])
+df['duration'] = np.where(df['duration'] > upper_bound_duration, upper_bound_duration, df['duration'])
+
+
+
+print(f"{Fore.RED}After Outliers Treatment: \n.{Style.RESET_ALL}")
+daily_miles = df.resample('D')['miles'].sum()
+plt.figure(figsize=(12, 6))
+plt.plot(daily_miles.index, daily_miles.values)
+plt.xlabel('Date')
+plt.ylabel('Miles Driven')
+plt.title('Miles Driven Over Time(After Outliers Treatment)')
+plt.show()
+
+
+
+data.head()
