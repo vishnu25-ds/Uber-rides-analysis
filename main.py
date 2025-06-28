@@ -285,3 +285,69 @@ plt.show()
 
 
 data.head()
+
+
+
+
+
+# Using pandas to encode featuers 
+df_encoded = pd.get_dummies(data, columns=['category', 'start',"purpose", 'stop', 'day_name', 'time_label', 'month'])
+
+
+
+# Spliting Data into Train and Test
+from sklearn.model_selection import train_test_split
+X = df_encoded.drop(['miles',"start_date","end_date"], axis=1) 
+y = df_encoded['miles']  
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+
+
+models = {
+    'Linear Regression': LinearRegression(),
+    'Decision Tree': DecisionTreeRegressor(),
+    'Random Forest': RandomForestRegressor(),
+    'SVR': SVR(),
+    'XGBoost': xgb.XGBRegressor(),
+    'LightGBM': lgb.LGBMRegressor(),
+    'Gradient Boosting Regressor' : GradientBoostingRegressor(),
+    'ADA Boost' : AdaBoostRegressor(),
+    'Linear SVR' : LinearSVR(),
+    'KNN Regressor' : KNeighborsRegressor(),
+    'Cat Boost Regressor' : CatBoostRegressor()
+}
+
+
+accuracy = {}
+predictions = {}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    predictions[name] = y_pred
+
+
+
+for name, y_pred in predictions.items():
+    mse = mean_squared_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+    accuracy[name] = r2
+    
+    print(f"Results for {name}:")
+    print(f"Mean Squared Error: {mse}")
+    print(f"R-squared Score: {r2}")
+    
+    plt.figure(figsize=(10, 2))
+    plt.plot(np.arange(len(y_test)), y_test, label='Actual Trend')
+    plt.plot(np.arange(len(y_test)), y_pred, label='Predicted Trend')
+    plt.xlabel('Data Index')
+    plt.ylabel('Trend')
+    plt.title(f'{name}: Actual Trend vs. Predicted Trend')
+    plt.legend()
+    plt.show()
+    print()
+
+
+
+
