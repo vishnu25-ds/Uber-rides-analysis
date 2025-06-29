@@ -350,4 +350,28 @@ for name, y_pred in predictions.items():
 
 
 
+from sklearn.metrics import precision_score, recall_score, f1_score, classification_report
+
+# Define a threshold for classification (need to adjust this based on the problem)
+threshold = 50  # 
+
+# Convert regression predictions to binary classification labels
+binary_predictions = {name: np.where(y_pred > threshold, 1, 0) for name, y_pred in predictions.items()}
+
+precision = {}
+recall = {}
+f1 = {}
+
+for name, y_pred_bin in binary_predictions.items():
+    precision[name] = precision_score(y_test > threshold, y_pred_bin)
+    recall[name] = recall_score(y_test > threshold, y_pred_bin)
+    f1[name] = f1_score(y_test > threshold, y_pred_bin)
+
+for name in precision.keys():
+    print(f"Results for {name}:")
+    print(f"Precision: {precision[name]:.4f}")
+    print(f"Recall: {recall[name]:.4f}")
+    print(f"F1 Score: {f1[name]:.4f}")
+    print()
+
 
