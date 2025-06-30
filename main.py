@@ -375,3 +375,49 @@ for name in precision.keys():
     print()
 
 
+
+
+
+import pandas as pd
+import numpy as np
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+
+
+
+# Initialize lists to store metrics
+model_names = []
+accuracies = []
+precisions = []
+recalls = []
+f1_scores = []
+
+# Create an empty dictionary to store model predictions
+temp_predictions = {}
+
+for model_name, model in models.items():
+    y_pred = model.predict(X_test)
+    temp_predictions[model_name] = y_pred
+
+for model_name in temp_predictions.keys():
+    y_pred_bin = np.where(temp_predictions[model_name] > threshold, 1, 0)
+    
+    accuracy_value = accuracy_score(y_test > threshold, y_pred_bin)
+    precision_value = precision_score(y_test > threshold, y_pred_bin)
+    recall_value = recall_score(y_test > threshold, y_pred_bin)
+    f1_value = f1_score(y_test > threshold, y_pred_bin)
+
+    # Append metrics to the lists
+    model_names.append(model_name)
+    accuracies.append(accuracy_value)
+    precisions.append(precision_value)
+    recalls.append(recall_value)
+    f1_scores.append(f1_value)
+
+# Create the metrics DataFrame
+metrics_df = pd.DataFrame({
+    'Model': model_names,
+    'Accuracy': accuracies,
+    'Precision': precisions,
+    'Recall': recalls,
+    'F1 Score': f1_scores
+})
