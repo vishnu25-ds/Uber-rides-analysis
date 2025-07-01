@@ -421,3 +421,29 @@ metrics_df = pd.DataFrame({
     'Recall': recalls,
     'F1 Score': f1_scores
 })
+
+
+
+# Display the metrics DataFrame
+print(metrics_df)
+
+import matplotlib.pyplot as plt
+
+# Plot the metrics using a bar graph
+fig, ax = plt.subplots(figsize=(10, 6))
+
+bar_width = 0.2
+bar_positions = np.arange(len(metrics_df['Model']))
+
+for i, metric in enumerate(['Accuracy', 'Precision', 'Recall', 'F1 Score']):
+    ax.bar(bar_positions + i * bar_width, metrics_df[metric], width=bar_width, label=metric)
+
+ax.set_title('Model Performance Metrics')
+ax.set_ylabel('Score')
+ax.set_xlabel('Model')
+ax.set_xticks(bar_positions + bar_width * 1.5)
+ax.set_xticklabels(metrics_df['Model'], rotation=90)
+ax.legend()
+
+plt.show()
+
